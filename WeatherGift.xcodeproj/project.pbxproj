@@ -76,6 +76,7 @@
 		31157EA0252E7E67008CA7F7 /* WeatherGift */ = {
 			isa = PBXGroup;
 			children = (
+				316E04DC252ECAA500F1E890 /* APIkeys.swift */,
 				31157EA1252E7E67008CA7F7 /* AppDelegate.swift */,
 				31157EA3252E7E67008CA7F7 /* SceneDelegate.swift */,
 				31157EB5252E7EE0008CA7F7 /* WeatherLocation.swift */,
@@ -84,7 +85,6 @@
 				31157EAA252E7E6A008CA7F7 /* Assets.xcassets */,
 				31157EAC252E7E6A008CA7F7 /* LaunchScreen.storyboard */,
 				31157EAF252E7E6A008CA7F7 /* Info.plist */,
-				316E04DC252ECAA500F1E890 /* APIkeys.swift */,
 			);
 			path = WeatherGift;
 			sourceTree = "<group>";

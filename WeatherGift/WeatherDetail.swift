@@ -52,13 +52,34 @@ class WeatherDetail: WeatherLocation {
                 self.currentTime = result.current.dt
                 self.temperature = Int(result.current.temp.rounded())
                 self.summary = result.current.weather[0].description
-                self.dailyIcon = result.current.weather[0].icon
+                self.dailyIcon = self.fileNameForIcon(icon: result.current.weather[0].icon)
             } catch {
                 print("JSON L. \(error.localizedDescription)")
             }
             completed()
         }
         task.resume()
+    }
+    
+    private func fileNameForIcon(icon: String) -> String {
+        var newFileName = ""
+        switch icon {
+        case "01d", "02d":
+            newFileName = "clear-day"
+        case "01n", "02n":
+            newFileName = "clear-night"
+        case "03d", "04d", "03n", "04n":
+            newFileName = "few-clouds-day"
+        case "09d", "09n", "10d", "10n", "11d", "11n", "50d", "50n":
+            newFileName = "scattered-clouds-day"
+        case "13d":
+            newFileName = "snow-day"
+        case "13n":
+            newFileName = "snow-night"
+        default:
+            newFileName = icon
+        }
+        return newFileName
     }
 }
 

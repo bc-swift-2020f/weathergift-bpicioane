@@ -19,6 +19,7 @@
 		316E04DF252F4AD600F1E890 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316E04DE252F4AD600F1E890 /* LocationDetailViewController.swift */; };
 		318B5EE72531104100967F62 /* WeatherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318B5EE62531104100967F62 /* WeatherDetail.swift */; };
 		31C7DA332530B12500938BF6 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C7DA322530B12500938BF6 /* PageViewController.swift */; };
+		31FD436125461642001F0757 /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD436025461642001F0757 /* HourlyCollectionViewCell.swift */; };
 		6DEE47868B5606EBDCC0EDF5 /* libPods-WeatherGift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5965C3A377BF4A1BF6E94C /* libPods-WeatherGift.a */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		316E04DE252F4AD600F1E890 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		318B5EE62531104100967F62 /* WeatherDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetail.swift; sourceTree = "<group>"; };
 		31C7DA322530B12500938BF6 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		31FD436025461642001F0757 /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				316E04DE252F4AD600F1E890 /* LocationDetailViewController.swift */,
 				31157EA5252E7E67008CA7F7 /* LocationListViewController.swift */,
 				314C95DE2544A19500C07C8D /* DailyTableViewCell.swift */,
+				31FD436025461642001F0757 /* HourlyCollectionViewCell.swift */,
 				31157EA7252E7E67008CA7F7 /* Main.storyboard */,
 				31157EAA252E7E6A008CA7F7 /* Assets.xcassets */,
 				31157EAC252E7E6A008CA7F7 /* LaunchScreen.storyboard */,
@@ -233,6 +236,7 @@
 				31157EA2252E7E67008CA7F7 /* AppDelegate.swift in Sources */,
 				316E04DF252F4AD600F1E890 /* LocationDetailViewController.swift in Sources */,
 				31157EA4252E7E67008CA7F7 /* SceneDelegate.swift in Sources */,
+				31FD436125461642001F0757 /* HourlyCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

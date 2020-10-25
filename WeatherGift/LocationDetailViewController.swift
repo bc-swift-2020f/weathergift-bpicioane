@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 private let dateFormatter: DateFormatter = {
     print("Just made a date formatter!")
@@ -29,18 +30,27 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     
     var weatherDetail: WeatherDetail!
+    
+    var locationManager: CLLocationManager!
+    
     //var weatherLocations: [WeatherLocation] = []
     var locationIndex = 0
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         clearUserInterface()
         tableView.delegate = self
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        if locationIndex == 0 {
+            getLocation()
+        }
         updateUserInterface()
-        
     }
     
     func clearUserInterface() {
@@ -128,4 +138,65 @@ extension LocationDetailViewController: UICollectionViewDataSource, UICollection
     }
     
     
+}
+
+extension LocationDetailViewController: CLLocationManagerDelegate {
+    func getLocation() {
+        //Creating a CLLocationManager will automatically check authorization
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("checking for auth.")
+        handleAuthentificationStatus(status: status)
+    }
+    
+    func handleAuthentificationStatus(status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            self.oneButtonAlert(title: "Location Services Denied", message: "It may be that parental controls are restricting location use in this app.")
+        case .denied:
+            //TODO: handle alert with ability to change
+            break
+        case .authorizedAlways:
+            locationManager.requestLocation()
+        case .authorizedWhenInUse:
+            locationManager.requestLocation()
+        @unknown default:
+            print("DEV ALERT: unknown case of status \(status)")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //TODO: deal with change in location
+        let currentLocation = locations.last ?? CLLocation()
+        print("current location is \(currentLocation.coordinate.latitude), \(currentLocation.coordinate.longitude)")
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(currentLocation) { (placemarks, error) in
+            var locationName = ""
+            if placemarks != nil {
+                let placemark = placemarks?.last
+                locationName = placemark?.name ?? "Parts Unknown"
+            } else {
+                print("L. Error retrieving place")
+            }
+            //Update weatherLocations[0] so it can be used in UI
+            let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
+            pageViewController.weatherLocations[self.locationIndex].latitude = currentLocation.coordinate.latitude
+            pageViewController.weatherLocations[self.locationIndex].longitude = currentLocation.coordinate.longitude
+            pageViewController.weatherLocations[self.locationIndex].name = locationName
+            self.updateUserInterface()
+        }
+        
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        //TODO: deal with error
+        print("L. \(error.localizedDescription). Failed to get device location.")
+    }
 }

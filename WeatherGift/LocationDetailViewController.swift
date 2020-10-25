@@ -160,7 +160,7 @@ extension LocationDetailViewController: CLLocationManagerDelegate {
             self.oneButtonAlert(title: "Location Services Denied", message: "It may be that parental controls are restricting location use in this app.")
         case .denied:
             //TODO: handle alert with ability to change
-            break
+            showAlertToPrivacySettings(title: "User Has Not Authorized Location Services", message: "Select 'Settings' below to enable location services for this app.")
         case .authorizedAlways:
             locationManager.requestLocation()
         case .authorizedWhenInUse:
@@ -170,8 +170,22 @@ extension LocationDetailViewController: CLLocationManagerDelegate {
         }
     }
     
+    func showAlertToPrivacySettings(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
+            print("L. Something went wrong with openSettingsURLString.")
+            return
+        }
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) in
+            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(settingsAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //TODO: deal with change in location
         let currentLocation = locations.last ?? CLLocation()
         print("current location is \(currentLocation.coordinate.latitude), \(currentLocation.coordinate.longitude)")
         
